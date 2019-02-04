@@ -2,13 +2,14 @@
 tellonym.me message spammer
 
 ## Summary ##
-tellonym.me is an online service that allows you to receive anonymous messages from people who have your tag. For some reason it's also unprotected by a captcha so you can (ab)use that to rickroll your friends, assuming you have any, anonymously.
+tellonym.me is an online service that allows you to receive anonymous messages from people who have your id. For some reason it's also unprotected by a captcha so you can (ab)use that to rickroll your friends, assuming you have any, anonymously.
 
 ## Dependencies ##
 * python3
 * selenium
 
 ## Command line options ##
+```
 ./tellonym.py -h
 usage: tellonym.py [-h] [-i INPUT_FILE] [-t TIMES] [-r RETRIES] user
 
@@ -26,3 +27,4 @@ optional arguments:
   -r RETRIES, --retries RETRIES
                         Number of times to retry sending message until giving
                         up.
+```
