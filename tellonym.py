@@ -66,6 +66,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def run(args=None):
+    logging.info("Starting Tellonym Spammer application.")
+
     # read messages from input file or stdin and load them in a list
     messages = [message.strip() for message in args.input_file.readlines()]
 
@@ -96,7 +98,6 @@ def run(args=None):
 
 
 def main():
-    logging.info("Starting Tellonym Spammer application.")
     run(parse_args())
 
 
