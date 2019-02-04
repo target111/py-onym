@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse, logging, time, sys
 
 from lib.service import Service
