@@ -5,8 +5,7 @@ tellonym.me message spammer
 tellonym.me is an online service that allows you to receive anonymous messages from people who have your id. For some reason it's also unprotected by a captcha so you can (ab)use that to rickroll your friends, assuming you have any, anonymously.
 
 ## Dependencies ##
-* python3
-* selenium
+```pip3 install -r requirements.txt```
 
 Make sure to add drivers to ```$PATH```.
 
