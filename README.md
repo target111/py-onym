@@ -8,7 +8,7 @@ tellonym.me is an online service that allows you to receive anonymous messages f
 * python3
 * selenium
 
-Make sure to add drivers to ```$PATH```
+Make sure to add drivers to ```$PATH```.
 
 ## Command line options ##
 ```
