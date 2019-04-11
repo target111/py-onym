@@ -1,5 +1,4 @@
 greenhat - a masturbatory inside joke journey through bug bounty programs and making money as a hacker on the internet
-
 wrapped tight in a comfortable blanket
 otherwise naked
 running nmap scans against the targets im breaking
@@ -10,7 +9,6 @@ stack of mobile modems dynamic leases
 bit unorthodox im cheesing all these CISOs to pieces
 internet jesus - im walking on that water boy
 on this river made of tears get them dollars boy
-
 bitch im a green hat
 hacking for cash please believe that
 ask shubham “baby, where the weed at?
@@ -21,7 +19,6 @@ remote execution easy five figures biatch
 post it on them blogs when it come out of triage
 full disclosure rocking SOCs and the SIEMs
 we some frans rosen chosen bros and hacking machines
-
 see that? (see that?)
 i keep my cap a richer shade of black 
 so i can
@@ -34,7 +31,6 @@ cause im a
 green hat
 green hat
 green hat
-
 bugcrowd, hackerone, and zdi function
 but you shouldnt be afraid to take your sploit to the onion
 when that proof of concept zeroday is more than theyll pay
@@ -44,7 +40,6 @@ market forces turn malware into porsches
 and the white hats attend courses just to reverse my sources
 im chasing currency - can i get a hallelujah?
 professor ytcracker is just trying to school ya
-
 do it for more than just achievements and ribbons
 making a livings why God gave us all the gift of the gibsons
 this game eternal - so shove another rootkit in the kernel
