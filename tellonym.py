@@ -100,4 +100,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        logging.info("Caught keyboard interrupt signal. Shutting down...")
+        sys.exit(0)
