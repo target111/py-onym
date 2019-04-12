@@ -77,9 +77,17 @@ def run(args=None):
             tries = 0
 
             while True:
-                if tellonym.send(message):
-                    logging.info("Message sent succesfully.")
-                    break
+                try:
+                    if tellonym.send(message):
+                        logging.info("Message sent succesfully.")
+                        break
+
+                except KeyboardInterrupt:
+                    logging.info(
+                        "Caught keyboard interrupt signal. Shutting down...")
+                    tellonym.close()
+
+                    sys.exit(0)
 
                 else:
                     if tries > args.retries:
@@ -100,8 +108,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        logging.info("Caught keyboard interrupt signal. Shutting down...")
-        sys.exit(0)
+    main()
