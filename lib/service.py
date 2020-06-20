@@ -15,9 +15,9 @@ from lib.utils import sleep_random
 
 
 class Service(object):
-    def __init__(self, url=None):
+    def __init__(self, url=None, default_timeout=10):
         self.url = url if url else USER_URL
-        self.default_timeout = 10
+        self.default_timeout = default_timeout
         self.driver = get_driver_config()
 
     def load_page(self) -> None:
@@ -25,8 +25,7 @@ class Service(object):
 
     def handle_popup(self) -> None:
         # wait for pop-up to appear
-        self.wait_element_present((By.CLASS_NAME, CLASS_NAME_BUTTON),
-                                  timeout=5)
+        self.wait_element_present((By.CLASS_NAME, CLASS_NAME_BUTTON))
 
         button = self.driver.find_element_by_class_name(CLASS_NAME_BUTTON)
         button.click()
@@ -49,19 +48,19 @@ class Service(object):
         return True
 
     def wait_element_present(self, locator: Tuple[str, str],
-                             timeout=8) -> None:
-        self.default_timeout = timeout if timeout else self.default_timeout
+                             timeout=None) -> None:
+        timeout = timeout if timeout else self.default_timeout
         wait = WebDriverWait(self.driver, timeout)
         wait.until(expected_conditions.presence_of_element_located(locator))
 
     def wait_element_visible(self, locator: Tuple[str, str],
-                             timeout=8) -> None:
-        self.default_timeout = timeout if timeout else self.default_timeout
+                             timeout=None) -> None:
+        timeout = timeout if timeout else self.default_timeout
         wait = WebDriverWait(self.driver, timeout)
         wait.until(expected_conditions.visibility_of_element_located(locator))
 
-    def search_by_xpath(self, locator: Tuple[str, str], timeout=8) -> None:
-        self.default_timeout = timeout if timeout else self.default_timeout
+    def search_by_xpath(self, locator: Tuple[str, str], timeout=None) -> None:
+        timeout = timeout if timeout else self.default_timeout
         wait = WebDriverWait(self.driver, timeout)
         wait.until(expected_conditions.presence_of_element_located(locator))
 

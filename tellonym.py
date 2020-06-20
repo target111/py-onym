@@ -1,4 +1,7 @@
-import argparse, logging, time, sys
+import argparse
+import logging
+import time
+import sys
 
 from lib.service import Service
 from lib.constants import PAGE_URL
@@ -10,11 +13,12 @@ logging.basicConfig(
 
 
 class Tellonym(object):
-    def __init__(self, user):
+    def __init__(self, user, timeout):
         self.cookies = False
         self.user = user
+        self.timeout = timeout
 
-        self.s = Service(url=PAGE_URL + self.user)
+        self.s = Service(url=PAGE_URL + self.user, default_timeout=self.timeout)
 
     def send(self, message) -> bool:
         self.s.load_page()
@@ -59,6 +63,13 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=10)
 
+    parser.add_argument(
+        '-T',
+        '--timeout',
+        help='Number of seconds to wait on each operation until giving up.',
+        type=int,
+        default=10)
+
     args = parser.parse_args()
     return args
 
@@ -69,7 +80,7 @@ def run(args=None):
     # read messages from input file or stdin and load them in a list
     messages = [message.strip() for message in args.input_file.readlines()]
 
-    tellonym = Tellonym(args.user)
+    tellonym = Tellonym(args.user, args.timeout)
 
     for _ in range(args.times):
         for message in messages:
