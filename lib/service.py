@@ -43,7 +43,7 @@ class Service(object):
         sleep_random(1, 2)
 
         self.driver.find_element_by_xpath(
-            "//*[contains(text(), 'Register now and get notified when you get an answer!')]"
+            "//*[contains(text(), 'Success')]"
         )
         return True
 
