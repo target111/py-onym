@@ -12,7 +12,7 @@ Make sure to add drivers to ```$PATH```.
 ## Command line options ##
 ```
 ./tellonym.py -h
-usage: tellonym.py [-h] [-i INPUT_FILE] [-t TIMES] [-r RETRIES] user
+usage: tellonym.py [-h] [-i INPUT_FILE] [-t TIMES] [-r RETRIES] [-T TIMEOUT] [-R RATE] user
 
 Py-onym: Tellonym message spammer.
 
@@ -26,6 +26,8 @@ optional arguments:
   -t TIMES, --times TIMES
                         Number of times to loop through the messages
   -r RETRIES, --retries RETRIES
-                        Number of times to retry sending message until giving
-                        up.
+                        Number of times to retry sending message until giving up.
+  -T TIMEOUT, --timeout TIMEOUT
+                        Number of seconds to wait on each operation until giving up.
+  -R RATE, --rate RATE  How many seconds to wait between each message.
 ```
