@@ -5,6 +5,7 @@ import sys
 
 from lib.service import Service
 from lib.constants import PAGE_URL
+from lib.utils import sleep_random
 
 logging.basicConfig(
     format='%(asctime)s - %(message)s',
@@ -18,7 +19,7 @@ class Tellonym(object):
         self.user = user
         self.timeout = timeout
 
-        self.s = Service(url=PAGE_URL + self.user, default_timeout=self.timeout)
+        self.s = Service(url=PAGE_URL + self.user, timeout=self.timeout)
 
     def send(self, message) -> bool:
         self.s.load_page()
@@ -31,7 +32,8 @@ class Tellonym(object):
 
         try:
             return self.s.validate_message()
-        except:
+        except Exception as e:
+            print(e)
             return False
 
     def close(self) -> None:
@@ -62,13 +64,18 @@ def parse_args() -> argparse.Namespace:
         help='Number of times to retry sending message until giving up.',
         type=int,
         default=10)
-
     parser.add_argument(
         '-T',
         '--timeout',
         help='Number of seconds to wait on each operation until giving up.',
         type=int,
         default=10)
+    parser.add_argument(
+        '-R',
+        '--rate',
+        help='How many seconds to wait between sending messages.',
+        type=int,
+        default=1)
 
     args = parser.parse_args()
     return args
@@ -110,13 +117,14 @@ def run(args=None):
                         logging.error("Failed to send message. Retrying...")
                         tries += 1
 
+            sleep_random(args.rate, args.rate + 1)
+
     # close browser instance
     tellonym.close()
 
 
 def main():
     run(parse_args())
-
 
 if __name__ == "__main__":
     main()

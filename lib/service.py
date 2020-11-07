@@ -1,13 +1,13 @@
 from typing import Tuple
 
-import sys, os
+import sys, os, time
 
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webelement import By
 from selenium.webdriver.common.keys import Keys
 
-from config.chrome import get_driver_config
+from config.firefox import get_driver_config
 
 from lib.constants import *
 
@@ -15,9 +15,9 @@ from lib.utils import sleep_random
 
 
 class Service(object):
-    def __init__(self, url=None, default_timeout=10):
+    def __init__(self, url, timeout):
+        self.timeout = timeout
         self.url = url if url else USER_URL
-        self.default_timeout = default_timeout
         self.driver = get_driver_config()
 
     def load_page(self) -> None:
@@ -25,9 +25,9 @@ class Service(object):
 
     def handle_popup(self) -> None:
         # wait for pop-up to appear
-        self.wait_element_present((By.CLASS_NAME, CLASS_NAME_BUTTON))
+        self.wait_element_present((By.XPATH, COOKIES_XPATH))
 
-        button = self.driver.find_element_by_class_name(CLASS_NAME_BUTTON)
+        button = self.driver.find_element_by_xpath(COOKIES_XPATH)
         button.click()
 
     def send_message(self, message: str) -> None:
@@ -40,28 +40,20 @@ class Service(object):
         message_box.send_keys(Keys.CONTROL + Keys.ENTER)
 
     def validate_message(self) -> bool:
-        sleep_random(1, 2)
-
-        self.driver.find_element_by_xpath(
-            "//*[contains(text(), 'Success')]"
-        )
+        wait = WebDriverWait(self.driver, self.timeout)
+        wait.until(expected_conditions.title_is("Tellonym"))
         return True
 
-    def wait_element_present(self, locator: Tuple[str, str],
-                             timeout=None) -> None:
-        timeout = timeout if timeout else self.default_timeout
-        wait = WebDriverWait(self.driver, timeout)
+    def wait_element_present(self, locator: Tuple[str, str]) -> None:
+        wait = WebDriverWait(self.driver, self.timeout)
         wait.until(expected_conditions.presence_of_element_located(locator))
 
-    def wait_element_visible(self, locator: Tuple[str, str],
-                             timeout=None) -> None:
-        timeout = timeout if timeout else self.default_timeout
-        wait = WebDriverWait(self.driver, timeout)
+    def wait_element_visible(self, locator: Tuple[str, str]) -> None:
+        wait = WebDriverWait(self.driver, self.timeout)
         wait.until(expected_conditions.visibility_of_element_located(locator))
 
-    def search_by_xpath(self, locator: Tuple[str, str], timeout=None) -> None:
-        timeout = timeout if timeout else self.default_timeout
-        wait = WebDriverWait(self.driver, timeout)
+    def search_by_xpath(self, locator: Tuple[str, str]) -> None:
+        wait = WebDriverWait(self.driver, self.timeout)
         wait.until(expected_conditions.presence_of_element_located(locator))
 
     def close_browser_instance(self):
