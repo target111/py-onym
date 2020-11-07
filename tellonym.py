@@ -32,8 +32,7 @@ class Tellonym(object):
 
         try:
             return self.s.validate_message()
-        except Exception as e:
-            print(e)
+        except:
             return False
 
     def close(self) -> None:
