@@ -72,7 +72,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         '-R',
         '--rate',
-        help='How many seconds to wait between each message.',
+        help='Number of seconds to wait between sending each message.',
         type=int,
         default=1)
 
