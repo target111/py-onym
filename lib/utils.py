@@ -1,10 +1,13 @@
+from argparse import ArgumentTypeError
 from typing import Tuple, Dict, Optional
 
 from asyncio.streams import StreamReader
 import json
 import time
 import random
+import re
 
+PROXY_REGEX = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$"
 
 def encode_to_bytes(data: str or bytes) -> bytes:
     """
@@ -52,3 +55,8 @@ def sleep_random(*duration: Tuple[float, float]) -> None:
     sleep_time = random.uniform(a, b)
     print(f'Pausing execution flow for {sleep_time} seconds...')
     time.sleep(sleep_time)
+
+def proxy_regex(proxy_arg: str, pat=re.compile(PROXY_REGEX)):
+    if not pat.match(proxy_arg):
+        raise ArgumentTypeError(f"invalid proxy value: '{proxy_arg}'")
+    return proxy_arg

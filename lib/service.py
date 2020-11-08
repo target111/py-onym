@@ -15,10 +15,10 @@ from lib.utils import sleep_random
 
 
 class Service(object):
-    def __init__(self, url, timeout):
+    def __init__(self, url, timeout, proxy):
         self.timeout = timeout
         self.url = url if url else USER_URL
-        self.driver = get_driver_config()
+        self.driver = get_driver_config(proxy)
 
     def load_page(self) -> None:
         self.driver.get(self.url)

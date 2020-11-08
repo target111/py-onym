@@ -5,7 +5,7 @@ import sys
 
 from lib.service import Service
 from lib.constants import PAGE_URL
-from lib.utils import sleep_random
+from lib.utils import sleep_random, proxy_regex
 
 logging.basicConfig(
     format='%(asctime)s - %(message)s',
@@ -14,12 +14,12 @@ logging.basicConfig(
 
 
 class Tellonym(object):
-    def __init__(self, user, timeout):
+    def __init__(self, user, timeout, proxy):
         self.cookies = False
         self.user = user
         self.timeout = timeout
 
-        self.s = Service(url=PAGE_URL + self.user, timeout=self.timeout)
+        self.s = Service(url=PAGE_URL + self.user, timeout=self.timeout, proxy=proxy)
 
     def send(self, message) -> bool:
         self.s.load_page()
@@ -75,6 +75,12 @@ def parse_args() -> argparse.Namespace:
         help='Number of seconds to wait between sending each message.',
         type=int,
         default=1)
+    parser.add_argument(
+        '-p',
+        '--proxy',
+        help='Proxy server to be used for browser proxy configuration (firefox only).',
+        type=proxy_regex
+    )
 
     args = parser.parse_args()
     return args
@@ -86,7 +92,7 @@ def run(args=None):
     # read messages from input file or stdin and load them in a list
     messages = [message.strip() for message in args.input_file.readlines()]
 
-    tellonym = Tellonym(args.user, args.timeout)
+    tellonym = Tellonym(args.user, args.timeout, args.proxy)
 
     for _ in range(args.times):
         for message in messages:
