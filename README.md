@@ -29,5 +29,5 @@ optional arguments:
                         Number of times to retry sending message until giving up.
   -T TIMEOUT, --timeout TIMEOUT
                         Number of seconds to wait on each operation until giving up.
-  -R RATE, --rate RATE  How many seconds to wait between each message.
+  -R RATE, --rate RATE  Number of seconds to wait between sending each message.
 ```
